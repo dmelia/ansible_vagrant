@@ -1,0 +1,8 @@
+---
+# Default is to log in as root
+ansible_user: vagrant
+remote_user: vagrant
+
+# Add further variables which apply to all servers to this file...
+
+...
