@@ -1,0 +1,31 @@
+---
+
+- name: First playbook ansible
+  hosts: all
+  tasks:
+    - name: Install vim
+      apt: name=vim state=installed
+    - name: Install htop
+      apt: name=htop state=installed
+      become: true
+    - name: Install Git
+      apt: name=git-all state=installed
+    - name: Install Zsh
+      apt: name=zsh state=installed
+    - name: Install Docker Engine
+      apt: name=docker-ce state=installed
+    - name: Install Docker CLI
+      apt: name=docker-ce-cli state=installed
+    - name: Install Docker containerd
+      apt: name=containerd.io state=installed
+    - name: Install Ruby
+      apt: name=ruby state=installed
+    - name: Install Puppet
+      apt: name=apache2 state=installed
+    - name: Install Apache2
+      apt: name=apache2 state=installed
+    - name: Install Php5
+      apt: name=php state=installed
+    - name: Install Composer
+      apt: name=composer state=installed
+...
