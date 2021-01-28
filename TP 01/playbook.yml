@@ -2,43 +2,45 @@
 
 - name: First playbook ansible
   hosts: all
+  become: true
   tasks:
     - name: APT update
       apt: upgrade=dist force_apt_get=yes
-      become: true
-    - name: Install vim
-      apt: name=vim state=installed
-    - name: Install htop
-      apt: name=htop state=installed
-      become: true
-    - name: Install Git
-      apt: name=git-all state=installed
-      become: true
-    - name: Install Zsh
-      apt: name=zsh state=installed
-      become: true
-    - name: Install Docker Engine
-      apt: name=docker-ce state=installed
-      become: true
-    - name: Install Docker CLI
-      apt: name=docker-ce-cli state=installed
-      become: true
-    - name: Install Docker containerd
-      apt: name=containerd.io state=installed
-      become: true
+
+    - name: Install vim, htop, git, zsh
+      apt: name={{ item }} state=installed
+      loop: [ 'vim', 'htop', 'git-all', 'zsh' ]
+
+    - name: Add Docker GPG apt Key
+        apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+
+          - name: Add Docker Repository
+            apt_repository:
+              repo: deb https://download.docker.com/linux/ubuntu bionic stable
+              state: present
+
+          - name: Update apt and install docker-ce
+            apt: update_cache=yes name=docker-ce state=latest
+
+          - name: Install Docker Module for Python
+            pip:
+              name: docker
+
     - name: Install Ruby
       apt: name=ruby state=installed
-      become: true
+
     - name: Install Puppet
       apt: name=puppet-agent state=installed
-      become: true
+
     - name: Install Apache2
       apt: name=apache2 state=installed
-      become: true
+
     - name: Install Php5
       apt: name=php state=installed
-      become: true
+
     - name: Install Composer
       apt: name=composer state=installed
-      become: true
+
 ...
