@@ -1,0 +1,26 @@
+---
+- name: Add master ip entry
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*puppet$'
+    line: "{{pa_master_addr}}  puppet"
+    state: "present"
+  when: pa_master_addr is defined
+
+- name: Write puppet conf
+  template:
+    src:   puppet.conf.j2
+    dest:  /etc/puppetlabs/puppet/puppet.conf
+    owner: root
+    group: root
+    mode:  u=rwx,g=rx,o=rx
+  when: pa_master_fqdn is defined
+
+- name: install composer
+  become: yes
+  get_url:
+    url: https://getcomposer.org/composer.phar
+    dest: /usr/local/bin/composer
+    mode: "0777"
+  when: php5_composer
+...
