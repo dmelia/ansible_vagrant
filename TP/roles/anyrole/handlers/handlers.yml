@@ -15,12 +15,4 @@
     group: root
     mode:  u=rwx,g=rx,o=rx
   when: pa_master_fqdn is defined
-
-- name: install composer
-  become: yes
-  get_url:
-    url: https://getcomposer.org/composer.phar
-    dest: /usr/local/bin/composer
-    mode: "0777"
-  when: php5_composer
 ...
