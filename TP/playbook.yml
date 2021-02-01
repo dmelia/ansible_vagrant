@@ -1,13 +1,13 @@
 ---
 
-- name: First playbook ansible
+- name: Playbook Ansible
   hosts: all
   become: true
   vars_files:
     - vars/default.yml
 
   tasks:
-    - import_tasks: /roles/anyrole/tasks.yml
+    - import_tasks: roles/anyrole/tasks/tasks.yml
 
-    - import_tasks : /roles/anyrole/handlers.yml
+    - import_tasks : roles/anyrole/handlers/handlers.yml
 ...
