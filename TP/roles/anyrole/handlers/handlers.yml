@@ -15,4 +15,24 @@
     group: root
     mode:  u=rwx,g=rx,o=rx
   when: pa_master_fqdn is defined
+
+- name: Reload Apache
+  service:
+    name: apache2
+    state: reloaded
+
+- name: Restart Apache
+  service:
+   name: apache2
+   state: restarted
+
+- name: Reload Apache
+  service:
+   name: apache2
+   state: reloaded
+
+- name: Restart Apache
+  service:
+    name: apache2
+    state: restarted
 ...
