@@ -9,5 +9,6 @@
   tasks:
     - import_tasks: roles/anyrole/tasks/tasks.yml
 
+  handlers:
     - import_tasks: roles/anyrole/handlers/handlers.yml
 ...

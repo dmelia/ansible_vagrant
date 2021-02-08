@@ -31,13 +31,4 @@
    name: apache2
    state: restarted
 
-- name: Reload Apache
-  service:
-   name: apache2
-   state: reloaded
-
-- name: Restart Apache
-  service:
-    name: apache2
-    state: restarted
 ...
