@@ -1,7 +1,7 @@
 ---
 
 - name Copy file from master to slave
-   copy:
-     src: files/test.txt
-     dest: $HOME/test-copy.txt
+  copy:
+    src: files/test.txt
+    dest: $HOME/test-copy.txt
 ...
