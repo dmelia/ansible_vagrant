@@ -1,4 +1,0 @@
----
-- name: Uninstall JUnit
-  apt: name=junit state=absent
-...

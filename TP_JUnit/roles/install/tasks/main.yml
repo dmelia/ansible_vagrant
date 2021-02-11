@@ -1,0 +1,6 @@
+---
+- name: Install JUnit
+  apt:
+    name: junit
+    state: latest
+...
