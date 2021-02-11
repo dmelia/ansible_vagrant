@@ -3,7 +3,6 @@
 - name: Install Junit
   hosts: all
   become: true
-
-  tasks:
-    - import_tasks: roles/install/tasks/tasks.yml
+  roles:
+    - install
 ...
