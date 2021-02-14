@@ -25,19 +25,27 @@
     group: www-data
   when: prestashop_status.stat.exists == false
 
+- name: Copy Prestashop directory contents to correct folder
+  command: "cp -r {{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}/. {{ prestashop_root_path }}"
+
+- name: Remove Prestashop download directory
+  file:
+    path: "{{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}"
+    state: absent
+
 - name: Install Prestashop from the console.
   command: "php index_cli.php --domain={{ prestashop_domain }} --db_create={{ prestashop_db_create }} --db_clear={{ prestashop_db_clear }} --db_server={{ prestashop_db_server }} --db_name={{ prestashop_db_name }} --db_user={{ prestashop_db_user }} --db_password={{ prestashop_db_password }} --engine={{ prestashop_db_engine }} --prefix={{ prestashop_db_prefix }} --language={{ prestashop_language }} --country={{ prestashop_country }} --timezone={{ prestashop_timezone }} --firstname={{ prestashop_firstname }} --lastname={{ prestashop_lastname }} --password={{ prestashop_password }} --email={{ prestashop_email }} --newsletter={{ prestashop_newsletter }}"
   args:
-    chdir:  "{{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}/install-dev"
+    chdir:  "{{ prestashop_root_path }}/install-dev"
   when: prestashop_status.stat.exists == false
 
 - name: Delete the PrestaShop install directory.
   file:
-    path: "{{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}/install-dev"
+    path: "{{ prestashop_root_path }}/install-dev"
     state: absent
 
 - name: Rename the PrestaShop admin directory.
-  command: "mv {{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}//admin-dev {{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}/{{ prestashop_admin_folder_name }}"
+  command: "mv {{ prestashop_root_path }}/admin-dev {{ prestashop_root_path }}/{{ prestashop_admin_folder_name }}"
   when: prestashop_status.stat.exists == false
 
 - name: Create a file that indicates that PrestsSop is installed.

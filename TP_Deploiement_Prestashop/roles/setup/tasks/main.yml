@@ -11,7 +11,7 @@
 # Apache Configuration
 - name: Install Packages
   apt: name={{ item }} update_cache=yes state=latest
-  loop: [ 'apache2', 'php', 'php-mysql', 'libapache2-mod-php', 'php-curl', 'php-xml', 'php-simplexml', 'php-gd', 'php-iconv', 'php-intl', 'php-json', 'php-mbstring', 'php-zip' ]
+  loop: [ 'default-mysql-client', 'apache2', 'php', 'php-mysql', 'libapache2-mod-php', 'php-common', 'php-curl', 'php-gd', 'php-imagick', 'php-mbstring', 'php-mysql', 'php-json', 'php-xsl', 'php-intl', 'php-zip' ]
 
 - name: Create document root
   file:
@@ -42,4 +42,6 @@
     rule: allow
     port: "{{ http_port }}"
     proto: tcp
+  # We restart the Apache2 service when we're done
+  notify: Restart Apache
 ...
