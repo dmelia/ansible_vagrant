@@ -25,19 +25,19 @@
     group: www-data
   when: prestashop_status.stat.exists == false
 
-- name: Unzip the Prestashop zip.
+- name: Unzip the Prestashop tar.gz.
   unarchive:
-    src: "{{ prestashop_root_path }}/prestashop.zip"
+    src: "{{ prestashop_root_path }}/prestashop.tar.gz"
     dest: "{{ prestashop_root_path }}"
     remote_src: true
     owner: www-data
     group: www-data
   when: prestashop_status.stat.exists == false
 
-- name: Delete the Prestashop zip.
+- name: Delete the Prestashop tar.gz.
   file:
     state: absent
-    path: "{{ prestashop_root_path }}/prestashop.zip"
+    path: "{{ prestashop_root_path }}/prestashop.tar.gz"
   when: prestashop_status.stat.exists == false
 
 - name: Install Prestashop from the console.
