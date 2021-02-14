@@ -1,0 +1,63 @@
+---
+
+# Prestashop install & setup
+
+- name: Check if Prestashop is already installed.
+  stat:
+    path: "{{ prestashop_root_path }}/{{ prestashop_check_file_name }}"
+  register: prestashop_status
+
+- name: Create Prestashop directory.
+  file:
+    path: "{{ prestashop_root_path }}"
+    owner: www-data
+    group: www-data
+    mode: 0755
+    state: directory
+  when: prestashop_status.stat.exists == false
+
+- name: Download Prestashop.
+  unarchive:
+    src: "{{ prestashop_url_download }}"
+    dest: "{{ prestashop_root_path }}"
+    remote_src: true
+    owner: www-data
+    group: www-data
+  when: prestashop_status.stat.exists == false
+
+- name: Unzip the Prestashop zip.
+  unarchive:
+    src: "{{ prestashop_root_path }}/prestashop.zip"
+    dest: "{{ prestashop_root_path }}"
+    remote_src: true
+    owner: www-data
+    group: www-data
+  when: prestashop_status.stat.exists == false
+
+- name: Delete the Prestashop zip.
+  file:
+    state: absent
+    path: "{{ prestashop_root_path }}/prestashop.zip"
+  when: prestashop_status.stat.exists == false
+
+- name: Install Prestashop from the console.
+  command: "php index_cli.php --domain={{ prestashop_domain }} --db_create={{ prestashop_db_create }} --db_clear={{ prestashop_db_clear }} --db_server={{ prestashop_db_server }} --db_name={{ prestashop_db_name }} --db_user={{ prestashop_db_user }} --db_password={{ prestashop_db_password }} --engine={{ prestashop_db_engine }} --prefix={{ prestashop_db_prefix }} --language={{ prestashop_language }} --country={{ prestashop_country }} --timezone={{ prestashop_timezone }} --firstname={{ prestashop_firstname }} --lastname={{ prestashop_lastname }} --password={{ prestashop_password }} --email={{ prestashop_email }} --newsletter={{ prestashop_newsletter }}"
+  args:
+    chdir:  "{{ prestashop_root_path }}/install"
+  when: prestashop_status.stat.exists == false
+
+- name: Delete the PrestaShop install directory.
+  file:
+    path: "{{ prestashop_root_path }}/install"
+    state: absent
+
+- name: Rename the PrestaShop admin directory.
+  command: "mv {{ prestashop_root_path }}/admin {{ prestashop_root_path }}/{{ prestashop_admin_folder_name }}"
+  when: prestashop_status.stat.exists == false
+
+- name: Create a file that indicates that PrestsSop is installed.
+  copy:
+    content: "PrestaShop {{ prestashop_version }} installed, do not delete this file, otherwise Ansible will reinstall PrestaShop"
+    dest: "{{ prestashop_root_path }}/{{ prestashop_check_file_name }}"
+  when: prestashop_status.stat.exists == false
+...

@@ -1,4 +1,8 @@
 ---
-
-
+- name: Setup the database servers
+  hosts: dbservers
+  become: true
+  become_method: sudo
+  roles:
+    - database
 ...

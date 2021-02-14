@@ -1,0 +1,7 @@
+---
+app_user: "vagrant"
+http_host: "prestashop_domain"
+http_conf: "prestashop_domain.conf"
+http_port: "80"
+disable_default: true
+...
