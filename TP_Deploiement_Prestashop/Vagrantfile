@@ -7,12 +7,6 @@
 # you're doing.
 Vagrant.configure("2") do |config|
 
-  config.vm.define "dbserver" do |dbserver|
-    dbserver.vm.box = "ubuntu/bionic64"
-  	dbserver.vm.network "private_network", ip: "192.168.56.13", use_dhcp_assigned_default_route: true
-  	dbserver.vm.synced_folder "dbserver/", "/vagrant"
-  end
-
   config.vm.define "webserver" do |webserver|
     webserver.vm.box = "ubuntu/bionic64"
 	webserver.vm.network "private_network", ip: "192.168.56.12", use_dhcp_assigned_default_route: true

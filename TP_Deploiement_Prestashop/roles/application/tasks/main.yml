@@ -35,14 +35,8 @@
     state: absent
   when: prestashop_status.stat.exists == false
 
-- name: Get composer.phar
-  command: "curl -O https://getcomposer.org/composer.phar"
-  args:
-    chdir:  "{{ prestashop_root_path }}"
-  when: prestashop_status.stat.exists == false
-
 - name: Composer install
-  command: "php composer.phar install"
+  command: "composer install"
   args:
     chdir:  "{{ prestashop_root_path }}"
   when: prestashop_status.stat.exists == false
