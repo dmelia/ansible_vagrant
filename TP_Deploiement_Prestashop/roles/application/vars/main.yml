@@ -11,7 +11,7 @@ prestashop_db_clear: 1
 prestashop_db_server: "localhost"
 prestashop_db_name: "prestashop"
 prestashop_db_user: "u_prestashop"
-prestashop_db_password: "p_prestashop"
+prestashop_db_password: "test123"
 prestashop_db_engine: "InnoDB"
 prestashop_db_prefix: "ps_"
 prestashop_language: "fr"
