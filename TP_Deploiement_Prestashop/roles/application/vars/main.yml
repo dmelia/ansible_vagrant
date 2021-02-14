@@ -1,6 +1,6 @@
 ---
 prestashop_version: 1.7.7.1
-prestashop_url_download: "https://download.prestashop.com/download/releases/prestashop_{{ prestashop_version }}.zip"
+prestashop_url_download: "https://github.com/PrestaShop/PrestaShop/archive/{{ prestashop_version }}.tar.gz"
 
 prestashop_root_path: "/var/www/prestashop_domain"
 
