@@ -1,16 +1,16 @@
 ---
-#- name: Setup the database servers
-#  hosts: dbservers
-#  become: true
-#  become_method: sudo
-#  roles:
-#    - database
+- name: Setup the database servers
+  hosts: dbservers
+  become: true
+  become_method: sudo
+  roles:
+    - database
 
 - name: Setup and deploy the application servers
   hosts: webservers
   become: true
   become_method: sudo
   roles:
-    #- setup
+    - setup
     - application
 ...
