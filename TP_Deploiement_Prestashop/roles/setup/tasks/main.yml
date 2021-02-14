@@ -11,7 +11,7 @@
 # Apache Configuration
 - name: Install Packages
   apt: name={{ item }} update_cache=yes state=latest
-  loop: [ 'apache2', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php', 'python-mysqldb' ]
+  loop: [ 'apache2', 'python3-pymysql', 'php', 'php-mysql', 'libapache2-mod-php', 'python-mysqldb', 'php-curl', 'php-xml', 'php-simplexml', 'php-gd', 'php-iconv', 'php-intl', 'php-json', 'php-mbstring', 'php-zip' ]
 
 - name: Create document root
   file:
