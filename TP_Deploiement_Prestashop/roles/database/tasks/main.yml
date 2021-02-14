@@ -7,7 +7,7 @@
 # MySQL Configuration
 - name: Sets the root password
   mysql_user:
-    name: root
+    name: "{{ mysql_prestashop_user }}"
     password: "{{ mysql_root_password }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
 
@@ -16,20 +16,13 @@
     name: ''
     host_all: yes
     state: absent
-    login_user: root
+    login_user: "{{ mysql_prestashop_user }}"
     login_password: "{{ mysql_root_password }}"
-
-- name: Add the Prestashop MySQL user account
-  mysql_user:
-    name: '{{ mysql_prestashop_user }}'
-    state: present
-    priv: '*.*:ALL,GRANT'
-    login_password: "{{ mysql_prestashop_password }}"
 
 - name: Removes the MySQL test database
   mysql_db:
     name: test
     state: absent
-    login_user: root
+    login_user: "{{ mysql_prestashop_user }}"
     login_password: "{{ mysql_root_password }}"
 ...
