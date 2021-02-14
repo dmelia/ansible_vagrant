@@ -2,7 +2,7 @@
 # Install packages
 - name: Install Packages
   apt: name={{ item }} update_cache=yes state=latest
-  loop: [ 'mysql-server' ]
+  loop: [ 'mysql-server', 'python-mysqldb' ]
 
 # MySQL Configuration
 - name: Sets the root password

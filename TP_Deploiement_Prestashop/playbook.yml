@@ -5,4 +5,12 @@
   become_method: sudo
   roles:
     - database
+
+- name: Setup and deploy the application servers
+  hosts: webservers
+  become: true
+  become_method: sudo
+  roles:
+    - setup
+    - application
 ...
