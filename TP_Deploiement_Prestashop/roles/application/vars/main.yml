@@ -1,4 +1,5 @@
 ---
+app_user: "vagrant"
 prestashop_version: 1.7.7.1
 prestashop_url_download: "https://github.com/PrestaShop/PrestaShop/archive/{{ prestashop_version }}.tar.gz"
 

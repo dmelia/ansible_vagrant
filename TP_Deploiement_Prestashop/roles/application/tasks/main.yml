@@ -27,22 +27,37 @@
 
 - name: Copy Prestashop directory contents to correct folder
   command: "cp -r {{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}/. {{ prestashop_root_path }}"
+  when: prestashop_status.stat.exists == false
 
 - name: Remove Prestashop download directory
   file:
     path: "{{ prestashop_root_path }}/PrestaShop-{{ prestashop_version }}"
     state: absent
+  when: prestashop_status.stat.exists == false
+
+- name: Get composer.phar
+  command: "curl -O https://getcomposer.org/composer.phar"
+  args:
+    chdir:  "{{ prestashop_root_path }}"
+  when: prestashop_status.stat.exists == false
+
+- name: Composer install
+  command: "php composer.phar install"
+  args:
+    chdir:  "{{ prestashop_root_path }}"
+  when: prestashop_status.stat.exists == false
 
 - name: Install Prestashop from the console.
   command: "php index_cli.php --domain={{ prestashop_domain }} --db_create={{ prestashop_db_create }} --db_clear={{ prestashop_db_clear }} --db_server={{ prestashop_db_server }} --db_name={{ prestashop_db_name }} --db_user={{ prestashop_db_user }} --db_password={{ prestashop_db_password }} --engine={{ prestashop_db_engine }} --prefix={{ prestashop_db_prefix }} --language={{ prestashop_language }} --country={{ prestashop_country }} --timezone={{ prestashop_timezone }} --firstname={{ prestashop_firstname }} --lastname={{ prestashop_lastname }} --password={{ prestashop_password }} --email={{ prestashop_email }} --newsletter={{ prestashop_newsletter }}"
   args:
-    chdir:  "{{ prestashop_root_path }}/install-dev/"
+    chdir:  "{{ prestashop_root_path }}/install-dev"
   when: prestashop_status.stat.exists == false
 
 - name: Delete the PrestaShop install directory.
   file:
-    path: "{{ prestashop_root_path }}/install-dev/"
+    path: "{{ prestashop_root_path }}/install-dev"
     state: absent
+  when: prestashop_status.stat.exists == false
 
 - name: Rename the PrestaShop admin directory.
   command: "mv {{ prestashop_root_path }}/admin-dev {{ prestashop_root_path }}/{{ prestashop_admin_folder_name }}"
