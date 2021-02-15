@@ -18,7 +18,8 @@
     path: "/var/www/{{ http_host }}"
     state: directory
     owner: www-data
-    mode: '0755'
+    group: www-data
+    mode: 0755
 
 - name: Set up Apache virtualhost
   template:

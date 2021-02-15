@@ -10,8 +10,8 @@
 - name: Create Prestashop directory.
   file:
     path: "{{ prestashop_root_path }}"
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
+    owner: www-data
+    group: www-data
     mode: 0755
     state: directory
   when: prestashop_status.stat.exists == false
@@ -21,8 +21,9 @@
     src: "{{ prestashop_url_download }}"
     dest: "{{ prestashop_root_path }}"
     remote_src: true
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
+    owner: www-data
+    group: www-data
+    mode: 0755
   when: prestashop_status.stat.exists == false
 
 - name: Copy Prestashop directory contents to correct folder
